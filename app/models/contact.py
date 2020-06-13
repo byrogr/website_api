@@ -9,9 +9,10 @@ class Contact(db.Model, BaseModelMixin):
     subject = db.Column(db.String)
     message = db.Column(db.Text)
 
-    def __init__(self, name, email, subject, message):
+    def __init__(self, name, email, phone, subject, message):
         self.name = name
         self.email = email
+        self.phone = phone
         self.subject = subject
         self.message = message
 
