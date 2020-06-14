@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
-class BaseModelMixin(db.Model):
+class BaseModelMixin():
     def save(self):
         db.session.add(self)
         db.session.commit()

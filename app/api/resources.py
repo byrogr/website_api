@@ -18,7 +18,17 @@ class ContactResource(Resource):
         return result
 
     def post(self):
-        pass
+        data = request.get_json()
+        cd = contact_schema.load(data)
+        contact = Contact(
+            name=cd.get('name'),
+            email=cd.get('email'),
+            phone=cd.get('phone'),
+            subject=cd.get('subject'),
+            message=cd.get('message'))
+        contact.save()
+        resp = contact_schema.dump(contact)
+        return resp, 201
 
 
 api.add_resource(ContactResource, '/api/v1/contacts/',
