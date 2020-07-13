@@ -1,8 +1,8 @@
 from app.db import db, BaseModelMixin
 
 
-class Contact(db.Model, BaseModelMixin):
-    __tablename__ = 'contacts'
+class Prospect(db.Model, BaseModelMixin):
+    __tablename__ = 'prospects'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(180))

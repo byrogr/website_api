@@ -1,7 +1,7 @@
 import os
 from .database import create_database_url
 
-print(create_database_url())
+
 SECRET_KEY = os.getenv('SECRET_KEY', os.urandom(64).hex())
 
 PROPAGATE_EXCEPTIONS = True
