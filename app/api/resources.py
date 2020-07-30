@@ -3,6 +3,7 @@ from flask_restful import Api, Resource
 
 from .schemas import ProspectSchema
 from ..models.prospect import Prospect
+from ..services.mail_service import new_prospect_mail
 
 api_v1 = Blueprint('api_v1', __name__)
 
@@ -19,15 +20,16 @@ class ProspectResource(Resource):
 
     def post(self):
         data = request.get_json()
-        cd = prospect_schema.load(data)
-        contact = Prospect(
-            name=cd.get('name'),
-            email=cd.get('email'),
-            phone=cd.get('phone'),
-            subject=cd.get('subject'),
-            message=cd.get('message'))
-        contact.save()
-        resp = prospect_schema.dump(contact)
+        ps = prospect_schema.load(data)
+        prospect = Prospect(
+            name=ps.get('name'),
+            email=ps.get('email'),
+            phone=ps.get('phone'),
+            subject=ps.get('subject'),
+            message=ps.get('message'))
+        prospect.save()
+        new_prospect_mail(prospect)
+        resp = prospect_schema.dump(prospect)
         return resp, 201
 
 
